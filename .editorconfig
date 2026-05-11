@@ -1,0 +1,81 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{json,yml,yaml,xml,csproj,props,targets,slnx,sln}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.cs]
+# Using directives
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# Newlines
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+
+# Code style
+csharp_prefer_braces = true:warning
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:silent
+csharp_style_expression_bodied_properties = when_on_single_line:silent
+
+# Naming
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = warning
+dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
+dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
+dotnet_naming_symbols.interface.applicable_kinds = interface
+dotnet_naming_style.begins_with_i.required_prefix = I
+dotnet_naming_style.begins_with_i.capitalization = pascal_case
+
+# Analyzer suppressions — patterns we deliberately use that conflict with default CA rules.
+
+# CA1000: Do not declare static members on generic types
+# Reason: Result<T>.Success / Failure / ValidationFailure are idiomatic Result pattern.
+dotnet_diagnostic.CA1000.severity = none
+
+# CA1030: Use events where appropriate
+# Reason: Entity.Raise(IDomainEvent) is DDD domain events, not C# events.
+dotnet_diagnostic.CA1030.severity = none
+
+# CA1040: Avoid empty interfaces
+# Reason: IDomainEvent is a marker interface — a deliberate DDD pattern.
+dotnet_diagnostic.CA1040.severity = none
+
+# CA1711: Identifiers should not have incorrect suffix
+# Reason: IDomainEventHandler is the DDD term, deliberately ends in 'EventHandler'.
+dotnet_diagnostic.CA1711.severity = none
+
+# CA1716: Identifiers should not match reserved keywords
+# Reason: 'Error' is the canonical name in Result-pattern code.
+dotnet_diagnostic.CA1716.severity = none
+
+# CA1819: Properties should not return arrays
+# Reason: ValidationError.Errors exposes the violation list to the caller; the cost of
+#         copying every read is not worth a defensive copy here.
+dotnet_diagnostic.CA1819.severity = none
+
+# CA2225: Operator overloads have named alternates
+# Reason: implicit operator T -> Result<T> is the Result-pattern ergonomics we want.
+dotnet_diagnostic.CA2225.severity = none
+
+# CA1515: Consider making public types internal
+# Reason: xUnit discovers public test classes; ArchitectureTests intentionally exposes types.
+dotnet_diagnostic.CA1515.severity = none
+
+# CA1707: Identifiers should not contain underscores
+# Reason: xUnit convention is Method_Should_Behavior — readable test names trump the rule.
+dotnet_diagnostic.CA1707.severity = none
