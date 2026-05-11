@@ -139,6 +139,30 @@ public class LayerTests : BaseTest
             BuildFailureMessage(result, "Application must not depend on ASP.NET or hosting"));
     }
 
+    [Fact]
+    public void Infrastructure_Should_NotDependOn_WebApi()
+    {
+        TestResult result = Types.InAssembly(InfrastructureAssembly)
+            .Should()
+            .NotHaveDependencyOn("Web.Api")
+            .GetResult();
+
+        result.IsSuccessful.ShouldBeTrue(
+            BuildFailureMessage(result, "Infrastructure must not reference Web.Api"));
+    }
+
+    [Fact]
+    public void Infrastructure_Should_NotDependOn_WebFrameworks()
+    {
+        TestResult result = Types.InAssembly(InfrastructureAssembly)
+            .Should()
+            .NotHaveDependencyOnAny(WebFrameworkNamespaces)
+            .GetResult();
+
+        result.IsSuccessful.ShouldBeTrue(
+            BuildFailureMessage(result, "Infrastructure must not depend on ASP.NET or hosting"));
+    }
+
     private static string BuildFailureMessage(TestResult result, string rule)
     {
         var offenders = result.FailingTypes is null

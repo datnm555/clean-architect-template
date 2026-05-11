@@ -1,6 +1,7 @@
 using System.Reflection;
 using Application.Abstractions.Messaging;
 using Domain.Examples;
+using Infrastructure;
 using SharedKernel;
 
 namespace ArchitectureTests;
@@ -14,4 +15,5 @@ public abstract class BaseTest
     protected static readonly Assembly SharedKernelAssembly = typeof(Entity).Assembly;
     protected static readonly Assembly DomainAssembly = typeof(Example).Assembly;
     protected static readonly Assembly ApplicationAssembly = typeof(ICommand).Assembly;
+    protected static readonly Assembly InfrastructureAssembly = typeof(DependencyInjection).Assembly;
 }

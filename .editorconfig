@@ -94,3 +94,13 @@ dotnet_diagnostic.CA1812.severity = none
 # Reason: Application code runs without a SynchronizationContext (ASP.NET Core, console).
 #         ConfigureAwait(false) is noise for application/web code.
 dotnet_diagnostic.CA2007.severity = none
+
+# CA1062: Validate arguments of public methods
+# Reason: Nullable reference types already enforce non-null at the type level.
+#         Adding null checks on top of NRT-annotated parameters is redundant.
+dotnet_diagnostic.CA1062.severity = none
+
+# CA1848: Use the LoggerMessage delegates
+# Reason: Source-generated loggers are an optimization for high-volume hot paths.
+#         For low-rate paths (exception handlers, startup) plain ILogger calls are clearer.
+dotnet_diagnostic.CA1848.severity = none

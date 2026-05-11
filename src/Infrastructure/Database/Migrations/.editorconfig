@@ -1,0 +1,13 @@
+# EF Core migration files are generated artifacts.
+# Override style rules that conflict with the generator's output so we don't have to
+# hand-edit every new migration.
+
+[*.cs]
+csharp_style_namespace_declarations = block_scoped:silent
+dotnet_diagnostic.IDE0161.severity = none
+
+# CA1814: Multidimensional arrays — EF emits jagged data tables in migrations
+dotnet_diagnostic.CA1814.severity = none
+
+# IDE0058: Expression value is never used — Migration ops return a builder that's chained-then-discarded
+dotnet_diagnostic.IDE0058.severity = none
