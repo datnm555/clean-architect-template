@@ -79,3 +79,18 @@ dotnet_diagnostic.CA1515.severity = none
 # CA1707: Identifiers should not contain underscores
 # Reason: xUnit convention is Method_Should_Behavior — readable test names trump the rule.
 dotnet_diagnostic.CA1707.severity = none
+
+# CA1724: Type names should not match namespaces
+# Reason: DDD feature-folder convention names the aggregate after the folder
+#         (Domain.Examples.Example, Domain.Orders.Order). This is intentional.
+dotnet_diagnostic.CA1724.severity = none
+
+# CA1812: Avoid uninstantiated internal classes
+# Reason: Handlers are 'internal sealed' and constructed by the DI container at runtime.
+#         The analyzer can't see DI registrations.
+dotnet_diagnostic.CA1812.severity = none
+
+# CA2007: Consider calling ConfigureAwait on the awaited task
+# Reason: Application code runs without a SynchronizationContext (ASP.NET Core, console).
+#         ConfigureAwait(false) is noise for application/web code.
+dotnet_diagnostic.CA2007.severity = none

@@ -94,9 +94,11 @@ Build abstractions first, then one example feature.
 | # | File | Why this order |
 |---|---|---|
 | 3.1 | `SystemConstants.cs` (id length, etc.) | Used by validators below |
-| 3.2 | `Domain/Example/Example.cs` (private ctor + `Create()` returning `Result<Example>`) | Entity is the anchor |
-| 3.3 | `Domain/Example/ExampleErrors.cs` (static factories: `NotFound`, `AlreadyExists`) | Errors live next to the entity |
-| 3.4 | `Domain/Example/ExampleCreatedDomainEvent.cs` (record) | Demonstrates the event flow |
+| 3.2 | `Domain/Examples/Example.cs` (private ctor + `Create()` returning `Result<Example>`) | Entity is the anchor |
+| 3.3 | `Domain/Examples/ExampleErrors.cs` (static factories: `NotFound`, `AlreadyExists`) | Errors live next to the entity |
+| 3.4 | `Domain/Examples/ExampleCreatedDomainEvent.cs` (record) | Demonstrates the event flow |
+
+> Feature folders are plural (`Examples/`, `Orders/`) — the aggregate inside is singular (`Example`, `Order`). This avoids namespace/type name resolution clashes.
 
 **Verify:** arch test — Domain has zero outward refs.
 
@@ -123,11 +125,11 @@ dotnet add src/Application reference src/Domain src/SharedKernel
 
 | # | File | Why this order |
 |---|---|---|
-| 4.6 | `Application/Example/CreateExampleCommand.cs` (record with DataAnnotations) | Inputs first |
-| 4.7 | `Application/Example/CreateExampleCommandHandler.cs` (internal sealed) | Uses command + DbContext |
-| 4.8 | `Application/Example/Data/ExampleResponse.cs` (DTO) | Never expose Entity |
-| 4.9 | `Application/Example/Data/IExampleRepository.cs` (read-side interface) | Port for query handler |
-| 4.10 | `Application/Example/GetExampleQuery.cs` + handler | Read path |
+| 4.6 | `Application/Examples/CreateExampleCommand.cs` (record with DataAnnotations) | Inputs first |
+| 4.7 | `Application/Examples/CreateExampleCommandHandler.cs` (internal sealed) | Uses command + DbContext |
+| 4.8 | `Application/Examples/Data/ExampleResponse.cs` (DTO) | Never expose Entity |
+| 4.9 | `Application/Examples/Data/IExampleRepository.cs` (read-side interface) | Port for query handler |
+| 4.10 | `Application/Examples/GetExampleQuery.cs` + handler | Read path |
 
 **Verify:** Application doesn't reference Infrastructure (arch test).
 
